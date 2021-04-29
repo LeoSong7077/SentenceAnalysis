@@ -1,8 +1,9 @@
 package test;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-import org.snu.ids.kkma.index.Keyword;
 import org.snu.ids.kkma.index.KeywordExtractor;
 import org.snu.ids.kkma.index.KeywordList;
 import org.snu.ids.kkma.ma.MorphemeAnalyzer;
@@ -10,7 +11,8 @@ import org.snu.ids.kkma.ma.Sentence;
 
 public class Main {
 	public static void main(String[] args) throws Exception {
-String s = "정말 부끄러운 장면";
+		
+		String s = "정말 부끄러운 장면";
 		
 		// string to extract keywords
 		String strToExtrtKwrd = s;
@@ -42,21 +44,33 @@ String s = "정말 부끄러운 장면";
 		List stl = ma.divideToSentences(ret);
 
 		// print result
-				for( int i = 0; i < kl.size(); i++ ) {
-					Keyword kwrd = kl.get(i);
-					System.out.println(kwrd.getString() + "\t" + kwrd.getCnt() + "\t" + kwrd.getKey());
-				}
+//		for( int i = 0; i < kl.size(); i++ ) {
+//			Keyword kwrd = kl.get(i);
+//			System.out.println(kwrd.getString() + "\t" + kwrd.getCnt() + "\t" + kwrd.getKey());
+//		}
+		
+		ExcelReader er = new ExcelReader("data/grades.xlsx");
 		
 		// print the result
 		for( int i = 0; i < stl.size(); i++ ) {
 			Sentence st = (Sentence) stl.get(i);
-			System.out.println("===>  " + st.getSentence());
+			//System.out.println("===>  " + st.getSentence());
+			String[] tempArr = new String[st.size()];
 			for( int j = 0; j < st.size(); j++ ) {
-				System.out.println(st.get(j) + "\t" + st.get(j).getFirstMorp());
+				//System.out.println(st.get(j) + "\t" + st.get(j).getFirstMorp());
+				tempArr[j] = st.get(j).getFirstMorp().toString();
+				
 				//이 firstMorp가 용언포함된 것 맞고
 				// split("/") 해서 , 1번 인덱스와 2번 인덱스만 저장.
 				// 2번 인덱스가 VV, VA, VXV, VXA, VCP, VCN
 			}
+			
+			//tempArr
+			ArrayList<String> result = er.analyze(tempArr);
+			Iterator<String> iter = result.iterator();
+			while (iter.hasNext()) {
+	            System.out.println(iter.next());
+	        }
 		}
 
 		ma.closeLogger();

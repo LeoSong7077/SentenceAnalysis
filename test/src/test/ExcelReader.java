@@ -9,7 +9,8 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelReader {
-String url;
+	
+	String url;
 	
 	public ExcelReader() {
 		url = "";
@@ -19,13 +20,13 @@ String url;
 		this.url = url;
 	}
 	
-	public void analyze(String[] firstMorps) {
+	public ArrayList<String> analyze(String[] firstMorps) {
+		//겹치는값 없게 Set으로 하자!
+		ArrayList<String> result = new ArrayList<String>();
+		
 		try {
-            FileInputStream file = new FileInputStream("D:/tmp/upload/right_excel/test.xlsx");
+            FileInputStream file = new FileInputStream(url); //data/grades.xlsx
             XSSFWorkbook workbook = new XSSFWorkbook(file);
- 
-            //겹치는값 없게 Set으로 하자!
-            ArrayList<String> result = new ArrayList<String>();
             
             int rowindex = 0;
             int columnindex = 0;
@@ -82,11 +83,11 @@ String url;
                     }
                 }
             }
-            
  
         } catch(Exception e) {
             e.printStackTrace();
         }
+		return result;
 	}
 	
 	public String getValue(XSSFCell cell) {
