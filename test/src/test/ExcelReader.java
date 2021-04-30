@@ -47,8 +47,6 @@ public class ExcelReader {
                     XSSFCell grade_cell = row.getCell(1);
                     String grade_value = getValue(grade_cell);
                     
-                    //얘를 split "0"해서 길이가 1이면 그대로 유지하고 길이가 2이면 grade_value에 "동음이의어" 결과 넣기
-                    
                     //비교하는 부분.
                     for (int i = 0; i < firstMorps.length; i++) {
                     	// "/"로 스플릿 할꺼고 0번째가 origin_word 고 1번째가 단어 종류
@@ -66,11 +64,11 @@ public class ExcelReader {
                     	if (origin_word.equals(word_value_splitzero[0]) ) {
                     		//출력할 결과값 추가
                     		//hashSet으로 해서 key를 origin_word, value를 grade_value하자
-                    		result.add(origin_word + "\t" + grade_value);
+                    		
+                    		result.add(origin_word + " / " + grade_value);
                     	}
                     	//result값 리턴
                     	//엑셀 파일 상대 경로에 넣기
-                    	
                     }
                 }
             }
