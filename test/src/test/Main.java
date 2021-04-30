@@ -12,23 +12,13 @@ import org.snu.ids.kkma.ma.Sentence;
 public class Main {
 	public static void main(String[] args) throws Exception {
 		
-		String s = "정말 부끄러운 장면";
-		
-		// string to extract keywords
-		String strToExtrtKwrd = s;
-
-		// init KeywordExtractor
-		KeywordExtractor ke = new KeywordExtractor();
-
-		// extract keywords
-		KeywordList kl = ke.extractKeyword(strToExtrtKwrd, true);
-
-		System.out.println("------------------------------------------------------");
+		String s = "공개된 사진 속 정동원은 폭풍 성장한 모습으로 자연스러운 포즈를 취하며 남다른 분위기를 발산했다. 그간 짧은 머리를 고수했던 정동원은 웨이브펌의 헤어스타일과 레드 컬러로 포인트를 준 패션으로 시선을 사로잡았다.";
 		
 		// init MorphemeAnalyzer
 		MorphemeAnalyzer ma = new MorphemeAnalyzer();
 
 		// create logger, null then System.out is set as a default logger
+		//로거를 지정하기, null 하면 콘솔에 표시
 		ma.createLogger(null);
 
 		// analyze morpheme without any post processing 
@@ -42,12 +32,6 @@ public class Main {
 
 		// divide result to setences
 		List stl = ma.divideToSentences(ret);
-
-		// print result
-//		for( int i = 0; i < kl.size(); i++ ) {
-//			Keyword kwrd = kl.get(i);
-//			System.out.println(kwrd.getString() + "\t" + kwrd.getCnt() + "\t" + kwrd.getKey());
-//		}
 		
 		ExcelReader er = new ExcelReader("data/grades.xlsx");
 		
@@ -65,13 +49,14 @@ public class Main {
 				// 2번 인덱스가 VV, VA, VXV, VXA, VCP, VCN
 			}
 			
-			//tempArr
 			ArrayList<String> result = er.analyze(tempArr);
+			//System.out.println(result.size());
 			Iterator<String> iter = result.iterator();
 			while (iter.hasNext()) {
 	            System.out.println(iter.next());
 	        }
 		}
+		System.out.println("ok");
 
 		ma.closeLogger();
 	}

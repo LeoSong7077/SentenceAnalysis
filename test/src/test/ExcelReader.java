@@ -39,14 +39,6 @@ public class ExcelReader {
                 //행을읽는다
                 XSSFRow row = sheet.getRow(rowindex);
                 if (row !=null){
-                    //셀의 수
-//                    int cells = row.getPhysicalNumberOfCells();
-//                    for (columnindex = 0; columnindex <= cells; columnindex++){
-//                        //셀값을 읽는다
-//                        XSSFCell cell = row.getCell(columnindex);
-//                        String value  = getValue(cell);
-//                        System.out.println(rowindex+"번 행 : "+columnindex+"번 열 값은: "+value);
-//                    }
                     //인덱스 1 : 등급 , 인덱스 2 : 어휘   
                     XSSFCell word_cell = row.getCell(2);
                     String word_value  = getValue(word_cell); 
@@ -60,23 +52,22 @@ public class ExcelReader {
                     //비교하는 부분.
                     for (int i = 0; i < firstMorps.length; i++) {
                     	// "/"로 스플릿 할꺼고 0번째가 origin_word 고 1번째가 단어 종류
-                    	String origin_word = "";
+                    	String origin_word = "-";
                     	
                     	String[] firstMorp_arr = firstMorps[i].split("/");
-                    	if (firstMorp_arr[1] == "VV") { //모든 동사 종류 경우
-                    		origin_word = firstMorp_arr[0] + "다";
+                    	if (firstMorp_arr[2].equals("VV") || firstMorp_arr[2].equals("VA") ) { //모든 동사 종류 경우
+                    		origin_word = firstMorp_arr[1] + "다";
                     	}
                     	else {
-                    		origin_word = firstMorp_arr[0];
+                    		origin_word = firstMorp_arr[1];
                     	}
                     	
                     	//찾은 경우.
-                    	if (origin_word == word_value_splitzero[0]) {
+                    	if (origin_word.equals(word_value_splitzero[0]) ) {
                     		//출력할 결과값 추가
                     		//hashSet으로 해서 key를 origin_word, value를 grade_value하자
                     		result.add(origin_word + "\t" + grade_value);
                     	}
-                    	
                     	//result값 리턴
                     	//엑셀 파일 상대 경로에 넣기
                     	
@@ -96,20 +87,19 @@ public class ExcelReader {
         } else {
             //타입별로 내용 읽기
             switch (cell.getCellType()){
-            case XSSFCell.CELL_TYPE_FORMULA:
+            case FORMULA:
                 return cell.getCellFormula();
-            case XSSFCell.CELL_TYPE_NUMERIC:
+            case NUMERIC:
             	return cell.getNumericCellValue()+"";
-            case XSSFCell.CELL_TYPE_STRING:
+            case STRING:
             	return cell.getStringCellValue()+"";
-            case XSSFCell.CELL_TYPE_BLANK:
+            case BLANK:
             	return cell.getBooleanCellValue()+"";
-            case XSSFCell.CELL_TYPE_ERROR:
+            case ERROR:
             	return cell.getErrorCellValue()+"";
             default:
             	return "";
             }
-            
         }
 	}
 }
