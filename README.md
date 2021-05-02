@@ -1,4 +1,4 @@
-# SentenceAnalysis
+# WordGrader
 
 문장을 분석해서 엑셀 파일에 명시된 단어의 등급들을 표시한다.  
 
