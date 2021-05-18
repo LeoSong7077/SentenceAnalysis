@@ -108,6 +108,7 @@ public class GUIGenerator extends JFrame {
 				}
 			}
 		});
+		
 		container.add(toggle_button);
 		//this.pack();
 		setSize(1000,800); 

@@ -52,7 +52,7 @@ public class SentenceGrader {
             	for (int rowindex = 0; rowindex < rows; rowindex++) {
                     //ÇàÀ»ÀÐ´Â´Ù
                     XSSFRow row = sheet.getRow(rowindex);
-                    if (row != null){
+                    if (row != null) {
                         //ÀÎµ¦½º 1 : µî±Þ , ÀÎµ¦½º 2 : ¾îÈÖ   
                         XSSFCell word_cell = row.getCell(2);
                         String word_value  = getValue(word_cell); 
